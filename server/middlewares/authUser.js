@@ -1,0 +1,30 @@
+import jwt from 'jsonwebtoken'
+export const authUser =(req,res,next)=>{
+    try {
+
+        //collect token from cookies, decode token, check role
+        
+        // console.log(req.cookies)
+        const {token} = req.cookies
+
+        if(!token){
+            return res.status(401).json({message:"User not authorized"})
+        }
+
+        const decodedToken = jwt.verify(token,process.env.JWT_SECRETKEY)
+
+        console.log(decodedToken,"========Decoded token");
+        
+        if(!decodedToken){
+            return res.status(401).json({message:"User not authorized"})
+        }
+        req.user = decodedToken
+
+
+        next()
+        
+    } catch (error) {
+        res.status(error.statusCode || 500).json({message:error.message || "Internal server"})
+        
+    }
+}

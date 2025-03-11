@@ -1,0 +1,52 @@
+const mongoose = require("mongoose");
+
+const productSchema = new mongoose.Schema(
+  {
+    name: { 
+        type: String, 
+        required: true 
+    },
+    description: { 
+        type: String, 
+        required: true 
+    },
+    price: { 
+        type: Number, 
+        required: true 
+    },
+    category: { 
+        type: String, 
+        required: true 
+    },
+    brand: { 
+        type: String 
+    },
+    stock: { 
+        type: Number, 
+        required: true, 
+        default: 0 }, // Inventory count
+    images: { 
+        type: String ,
+        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s"
+    }, 
+    seller: { 
+        type: mongoose.Types.ObjectId, 
+        ref: "Admin", 
+        required: true 
+    }, 
+    ratings: {
+      type: Number,
+      default: 0,
+    },
+    // reviews: [
+    //   {
+    //     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    //     rating: { type: Number, required: true },
+    //     comment: { type: String, required: true },
+    //   },
+    // ],
+  },
+  { timestamps: true }
+);
+
+export const Product = mongoose.model("Product", productSchema);
