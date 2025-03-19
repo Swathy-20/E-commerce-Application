@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 
 const productSchema = new mongoose.Schema(
   {
@@ -34,7 +35,7 @@ const productSchema = new mongoose.Schema(
         ref: "Admin", 
         required: true 
     }, 
-    ratings: {
+    rating: {
       type: Number,
       default: 0,
     },

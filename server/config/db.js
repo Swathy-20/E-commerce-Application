@@ -1,6 +1,6 @@
 import { connect } from 'mongoose'
 const MONGO_URI = process.env.MONGO_URI
-console.log(MONGO_URI, 'mongo_uri');
+//console.log(MONGO_URI, 'mongo_uri');
 
 export const connectDB = async() => {
     try{

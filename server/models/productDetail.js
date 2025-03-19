@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const productDetailSchema = new mongoose.Schema(
   {
@@ -33,8 +33,10 @@ const productDetailSchema = new mongoose.Schema(
     seller: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Admin", 
-        required: true },
-    ratings: { 
+        required: true 
+    },
+    
+        ratings: { 
         type: Number, 
         default: 0 },
    
@@ -50,4 +52,4 @@ const productDetailSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const ProductDetail = mongoose.model("Product_Detail", productDetailSchema);
+export const ProductDetail = mongoose.model("ProductDetail", productDetailSchema);

@@ -13,7 +13,7 @@ export const authAdmin =(req,res,next)=>{
 
         const decodedToken = jwt.verify(token,process.env.JWT_SECRETKEY)
 
-        console.log(decodedToken,"========Decoded token");
+        //console.log(decodedToken,"========Decoded token");
         
         if(!decodedToken){
             return res.status(401).json({message:"Admin not authorized"})
@@ -25,7 +25,7 @@ export const authAdmin =(req,res,next)=>{
         req.admin = decodedToken
 
 
-        next()
+        next();
         
     } catch (error) {
         res.status(error.statusCode || 500).json({message:error.message || "Internal server"})
