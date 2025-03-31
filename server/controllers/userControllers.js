@@ -105,7 +105,7 @@ export const userProfile = async(req,res,next)=>{
         console.log('hitted')
         //id, 
         const userId = req.user.id
-        const userData = await User.findById(userId).select("-password -mobile")
+        const userData = await User.findById(userId).select("-password ")
 
         res.json({data:userData, message:"user  profile fetched"})
 

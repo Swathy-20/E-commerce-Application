@@ -49,7 +49,7 @@ export const getProductById = async (req,res,next)=> {
         const { id } = req.params;
         
             
-            let product = await Product.findById(id).populate("seller", "name price");;
+            let product = await Product.findById(id).populate("seller", "name price","description");;
             if (!product) {
               return res.status(404).json({ message: "Product not found" });
             }

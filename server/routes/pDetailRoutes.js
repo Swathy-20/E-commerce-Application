@@ -6,8 +6,7 @@ import { upload } from "../middlewares/multer.js";
 
 
 const router = e.Router();
-
-
+ 
 
 router.get('/allproductDetails',getAllProductDetails)
 

@@ -1,5 +1,6 @@
 import {ProductDetail} from "../models/productDetail.js"
 import { cloudinaryInstance } from "../config/cloudinary.js";
+import {Product} from "../models/productModel.js"
 
 // Get all product details
 export const getAllProductDetails = async (req, res) => {
@@ -15,7 +16,11 @@ export const getAllProductDetails = async (req, res) => {
 export const getProductDetailById = async (req, res) => {
   try {
     const {id} =req.params;
-    const productDetail = await ProductDetail.findById(id).populate("seller", "name email");
+    let productDetail = await ProductDetail.findById(id).populate("seller", "name email");
+
+    if(!productDetail){
+      productDetail = await ProductDetail.findOne({ productId: id }).populate("seller", "name email");
+    }
     if (!productDetail) {
       return res.status(404).json({ message: "Product details not found" });
     }
@@ -28,15 +33,22 @@ export const getProductDetailById = async (req, res) => {
 // Create new product details
 export const createProductDetail = async (req, res) => {
   try {
-    const {
+    const { productId,
       name, description, price, category, brand, stock,images,  seller, ratings, specifications, returnPolicy
     } = req.body;
     const adminId = req.admin.id;
+
+    const existingProduct = await Product.findById(productId);
+    if (!existingProduct) {
+      return res.status(404).json({ message: "Product not found. Create the product first." });
+    }
+
 
     const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.file.path);
             
     
             const newProduct = new ProductDetail({
+              productId,
                 name,
                 description,
                 price,

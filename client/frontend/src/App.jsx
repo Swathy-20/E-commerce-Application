@@ -1,23 +1,19 @@
-import { useState } from 'react'
 
-
+import {
+   
+    RouterProvider,
+  } from "react-router-dom";
+import { router } from "./routes/router";
+import { Toaster } from "react-hot-toast";
 
 
 function App() {
-    const name = "hari";
-    const [count, setCount] = useState(0);
-
-    const updateCount = () => {
-        setCount(count + 1);
-    };
-
-    return (
-        <>
-            <h1>Parent Component</h1>
-            <PrimaryButton count={count} onClick={updateCount} />
-            <PrimaryButton count={count} onClick={updateCount} />
-        </>
-    );
+  return (
+      <>
+          <RouterProvider router={router} />
+          <Toaster />
+      </>
+  );
 }
 
 export default App;
