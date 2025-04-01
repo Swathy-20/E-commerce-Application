@@ -1,12 +1,12 @@
 import React, { useEffect, useState }  from "react";
 import { useNavigate ,Outlet,useLocation} from "react-router-dom";
-//import { Header } from "../components/user/Header";
+import { Header } from "../components/user/Header";
 import { Footer } from "../components/user/Footer";
 import {  useSelector,useDispatch } from "react-redux";
 import { axiosInstance } from "../config/axiosInstance";
 
 import { clearUser, saveUser } from "../redux/features/userSlice";
-import { UserHeader } from "../components/user/UserHeader";
+//import { UserHeader } from "../components/user/UserHeader";
 
 
 
@@ -49,7 +49,7 @@ export const MainLayout = () => {
     
     return isLoading ? null :(
             <div>
-                 <UserHeader />
+                 <Header />
                 <div className="min-h-96">
                     <Outlet />
                 </div>
