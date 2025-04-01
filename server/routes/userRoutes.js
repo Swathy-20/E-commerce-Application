@@ -1,5 +1,5 @@
 import e from "express";
-import { userLogin, userProfile, userSignup,userProfileUpdate, userLogout ,forgotPassword, updatePassword, changeAddress, checkUser} from "../controllers/userControllers.js";
+import { userLogin, userLogout,userProfile, userSignup,userProfileUpdate ,updatePassword, changeAddress, checkUser} from "../controllers/userControllers.js";
 import { authUser } from "../middlewares/authUser.js";
 
 
@@ -28,7 +28,7 @@ router.get("/check-user", authUser, checkUser);
 //password-forgot
 //password-change
 //address update
-router.post("/forgot-password",authUser, forgotPassword);
+// router.post("/forgot-password",authUser, forgotPassword);
 
 router.put("/update-password", authUser,updatePassword);
 

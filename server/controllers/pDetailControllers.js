@@ -16,10 +16,10 @@ export const getAllProductDetails = async (req, res) => {
 export const getProductDetailById = async (req, res) => {
   try {
     const {id} =req.params;
-    let productDetail = await ProductDetail.findById(id).populate("seller", "name email");
+    let productDetail = await ProductDetail.findById(id).populate("name,email");
 
     if(!productDetail){
-      productDetail = await ProductDetail.findOne({ productId: id }).populate("seller", "name email");
+      productDetail = await ProductDetail.findOne({ productId: id });
     }
     if (!productDetail) {
       return res.status(404).json({ message: "Product details not found" });

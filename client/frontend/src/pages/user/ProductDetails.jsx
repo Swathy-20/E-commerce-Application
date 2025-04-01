@@ -7,14 +7,16 @@ import { axiosInstance } from "../../config/axiosInstance";
 
 export const ProductDetails = () => {
     const {id} = useParams();
-    console.log("Product ID from URL:", id);
+    //console.log("Product ID from URL:", id);
 
+    
     const [productDetails, isLoading, error] = useFetch(`/product-detail/detailbyId/${id}`);
     console.log("Fetched Product Details:", productDetails);
+    
     const handleAddToCart = async () => {
         try {
             const response = await axiosInstance({ method: "POST", data: { productId: id }, url: "/cart/add-to-cart" });
-            console.log(response, "=====add to cart RES");
+            console.log(response, "=====add to cart ");
             toast.success("Product added to cart");
         } catch (error) {
             console.log(error);

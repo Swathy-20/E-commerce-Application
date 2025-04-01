@@ -7,13 +7,13 @@ export const ProductCards = ({ product }) => {
     return (
         <div className="card bg-base-100 shadow-xl w-96">
             <figure>
-                <img src={product?.image} alt="products" />
+                <img src={product?.images} alt="products" />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{product?.name} </h2>
                 <p>Price : {product?.price}Rs </p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={() => navigate(`/product-detail/detailbyId/${product?._id}`)}>
+                    <button className="btn btn-primary" onClick={() => navigate(`/product-detail/detailbyId/${product._id}`)}>
                         Read More
                     </button>
                 </div>

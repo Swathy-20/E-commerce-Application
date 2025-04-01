@@ -1,11 +1,12 @@
 import React, { useEffect, useState }  from "react";
 import { useNavigate ,Outlet,useLocation} from "react-router-dom";
-import { Header } from "../components/user/Header";
+//import { Header } from "../components/user/Header";
 import { Footer } from "../components/user/Footer";
 import {  useSelector,useDispatch } from "react-redux";
 import { axiosInstance } from "../config/axiosInstance";
 
 import { clearUser, saveUser } from "../redux/features/userSlice";
+import { UserHeader } from "../components/user/UserHeader";
 
 
 
@@ -19,27 +20,36 @@ export const MainLayout = () => {
     const location = useLocation();
 
 
-    const checkUser = async()=>{
-        try {
-            const response = await axiosInstance.get("/user/check-user")
-            console.log(response,"========response");
-            dispatch(saveUser());
-            setIsLoading(false);
-            
+    const checkUser = async () => {
+        
+            const token = localStorage.getItem("token"); // Adjust based on where you store the token
+            if (!token) {
+                setIsLoading(false);
+                return; // Stop execution if there's no token
+            }
+            try {
+            const response = await axiosInstance.get("/user/check-user", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response, "========response");
+            dispatch(saveUser(response.data)); // Ensure you store user data correctly
         } catch (error) {
             console.error("Authentication check failed:", error);
             dispatch(clearUser());
-            
-            
+        } finally {
+            setIsLoading(false);
         }
-    }
+    };
+    
     useEffect(()=>{
             checkUser()
         },[location.pathname])
     
     return isLoading ? null :(
             <div>
-                 <Header />
+                 <UserHeader />
                 <div className="min-h-96">
                     <Outlet />
                 </div>

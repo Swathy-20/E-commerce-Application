@@ -10,7 +10,9 @@ export const useFetch = (url) => {
     // api call function
     const fetchData = async () => {
         try {
+            //console.log("Fetching data from:", url);
             const response = await axiosInstance({ method: "GET", url: url });
+            console.log("API Response:", response.data);
             setData(response?.data?.data);
             setIsLoading(false);
         } catch (error) {
@@ -22,6 +24,7 @@ export const useFetch = (url) => {
     //useEffect
     useEffect(() => {
         fetchData();
+        
     }, []);
 
     return [data, isLoading, error];

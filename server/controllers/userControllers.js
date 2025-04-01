@@ -1,7 +1,7 @@
 import { User } from "../models/userModel.js"
 import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
-import jwt from 'jsonwebtoken'
+//import nodemailer from "nodemailer";
+//import jwt from 'jsonwebtoken'
 
 import { generateToken } from "../utils/token.js"
 
@@ -149,103 +149,103 @@ export const userLogout = async(req,res,next)=>{
 }
 
 
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS  
-    }
-});
+// const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//         user: process.env.EMAIL_USER, 
+//         pass: process.env.EMAIL_PASS  
+//     }
+// });
 
 
-export const forgotPassword = async (req, res) => {
-    try {
-        const { email } = req.body;
+// export const forgotPassword = async (req, res) => {
+//     try {
+//         const { email } = req.body;
 
-        // Find user by email
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ success: false, message: "No account found with this email." });
-        }
+//         // Find user by email
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(404).json({ success: false, message: "No account found with this email." });
+//         }
 
-        // Generate reset token using JWT (valid for 10 minutes)
-        const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
+//         // Generate reset token using JWT (valid for 10 minutes)
+//         const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
 
-        // Store the token and expiry in the database
-        user.resetPasswordToken = resetToken;
-        user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
-        await user.save();
+//         // Store the token and expiry in the database
+//         user.resetPasswordToken = resetToken;
+//         user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes from now
+//         await user.save();
 
-        // Reset URL to send via email
-        const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+//         // Reset URL to send via email
+//         const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-        // Email Configuration
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS, // Use an App Password
-            }
-        });
+//         // Email Configuration
+//         const transporter = nodemailer.createTransport({
+//             service: "gmail",
+//             auth: {
+//                 user: process.env.EMAIL_USER,
+//                 pass: process.env.EMAIL_PASS, // Use an App Password
+//             }
+//         });
 
-        // Email content
-        const mailOptions = {
-            from: `"Your App Name" <${process.env.EMAIL_USER}>`,
-            to: user.email,
-            subject: "Password Reset Request",
-            text: `Click the link below to reset your password:\n\n${resetUrl}\n\nThis link is valid for 10 minutes.`,
-        };
+//         // Email content
+//         const mailOptions = {
+//             from: `"Your App Name" <${process.env.EMAIL_USER}>`,
+//             to: user.email,
+//             subject: "Password Reset Request",
+//             text: `Click the link below to reset your password:\n\n${resetUrl}\n\nThis link is valid for 10 minutes.`,
+//         };
 
-        // Send Email
-        await transporter.sendMail(mailOptions);
+//         // Send Email
+//         await transporter.sendMail(mailOptions);
 
-        res.status(200).json({
-            success: true,
-            message: "Password reset link sent to email.",
-        });
+//         res.status(200).json({
+//             success: true,
+//             message: "Password reset link sent to email.",
+//         });
 
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Something went wrong while processing your request."
-        });
-    }
-};
-export const resetPassword = async (req, res) => {
-    try {
-        const { token } = req.params;
-        const { newPassword, confirmPassword } = req.body;
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: "Something went wrong while processing your request."
+//         });
+//     }
+// };
+// export const resetPassword = async (req, res) => {
+//     try {
+//         const { token } = req.params;
+//         const { newPassword, confirmPassword } = req.body;
 
-        // Verify the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//         // Verify the token
+//         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Find user by ID
-        const user = await User.findById(decoded.id);
-        if (!user || user.resetPasswordToken !== token || user.resetPasswordExpires < Date.now()) {
-            return res.status(400).json({ success: false, message: "Invalid or expired token." });
-        }
+//         // Find user by ID
+//         const user = await User.findById(decoded.id);
+//         if (!user || user.resetPasswordToken !== token || user.resetPasswordExpires < Date.now()) {
+//             return res.status(400).json({ success: false, message: "Invalid or expired token." });
+//         }
 
-        // Check if passwords match
-        if (newPassword !== confirmPassword) {
-            return res.status(400).json({ message: "Passwords do not match." });
-        }
+//         // Check if passwords match
+//         if (newPassword !== confirmPassword) {
+//             return res.status(400).json({ message: "Passwords do not match." });
+//         }
 
-        // Hash new password
-        user.password = bcrypt.hashSync(newPassword, 10);
-        user.resetPasswordToken = null; // Clear reset token
-        user.resetPasswordExpires = null;
-        await user.save();
+//         // Hash new password
+//         user.password = bcrypt.hashSync(newPassword, 10);
+//         user.resetPasswordToken = null; // Clear reset token
+//         user.resetPasswordExpires = null;
+//         await user.save();
 
-        res.status(200).json({ success: true, message: "Password reset successful. You can now log in." });
+//         res.status(200).json({ success: true, message: "Password reset successful. You can now log in." });
 
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Something went wrong.",
-            error: error.message
-        });
-    }
-};
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: "Something went wrong.",
+//             error: error.message
+//         });
+//     }
+// };
 
 export const updatePassword = async (req, res) => {
     try {
