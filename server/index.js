@@ -16,7 +16,7 @@ connectDB()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-        origin: ["http://localhost:5173","https://e-commerce-application-server-sigma.vercel.app"],
+        origin: ["http://localhost:5173","https://e-commerce-application-shopnest.vercel.app"],
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTION"],
     })
