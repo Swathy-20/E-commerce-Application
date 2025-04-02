@@ -13,7 +13,8 @@ export const useFetch = (url) => {
             //console.log("Fetching data from:", url);
             const response = await axiosInstance({ method: "GET", url: url });
             console.log("API Response:", response.data);
-            setData(response?.data?.data);
+            let extracteddata = response?.data?.data || response?.data || null;
+            setData(extracteddata);
             setIsLoading(false);
         } catch (error) {
             console.log(error);

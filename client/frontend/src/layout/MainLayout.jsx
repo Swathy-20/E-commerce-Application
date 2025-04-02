@@ -1,12 +1,12 @@
 import React, { useEffect, useState }  from "react";
-import { useNavigate ,Outlet,useLocation} from "react-router-dom";
+import { Outlet,useLocation} from "react-router-dom";
 import { Header } from "../components/user/Header";
 import { Footer } from "../components/user/Footer";
 import {  useSelector,useDispatch } from "react-redux";
 import { axiosInstance } from "../config/axiosInstance";
 
 import { clearUser, saveUser } from "../redux/features/userSlice";
-//import { UserHeader } from "../components/user/UserHeader";
+import { UserHeader } from "../components/user/UserHeader";
 
 
 
@@ -46,10 +46,13 @@ export const MainLayout = () => {
     useEffect(()=>{
             checkUser()
         },[location.pathname])
+        //console.log("User is authenticated:", user?.isUserAuth)
     
     return isLoading ? null :(
             <div>
-                 <Header />
+            
+                 {user?.isUserAuth ? <UserHeader /> : <Header />}
+
                 <div className="min-h-96">
                     <Outlet />
                 </div>

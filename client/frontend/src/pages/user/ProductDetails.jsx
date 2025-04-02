@@ -1,6 +1,7 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
+import { Star } from 'lucide-react';
 
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../config/axiosInstance";
@@ -36,6 +37,13 @@ export const ProductDetails = () => {
                 <div>
                     <h1>{productDetails?.name}</h1>
                     <p>{productDetails?.description}</p>
+                    <p>Price: {productDetails?.price}</p>
+                    <p>{productDetails?.brand}</p>
+                    
+                    <Star /><p>Rating: {productDetails?.ratings}</p>
+                    <p>Stock: {productDetails?.stock}</p>
+                    <p>{productDetails?.specifications}</p>
+
                 
                     <img src={productDetails?.images} alt="product-image" />
                 
