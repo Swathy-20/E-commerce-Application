@@ -36,7 +36,11 @@ export const adminSignup = async(req,res,next)=>{
 
 
         const token = generateToken(newAdmin._id,"admin")
-        res.cookie("token",token )
+        res.cookie("token", token, {
+            sameSite: NODE_ENV === "production" ? "None" : "Lax",
+            secure: NODE_ENV === "production",
+            httpOnly: NODE_ENV === "production",
+        });
         const adminResponse = newAdmin.toObject();
         delete adminResponse.password;
 
