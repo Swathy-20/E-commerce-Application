@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { About } from "../pages/user/About";
 import { Contact } from "../pages/user/Contact";
 import { Home } from "../pages/user/Home";
-import { RootLayout } from "../layout/RootLayout";
+//import { RootLayout } from "../layout/RootLayout";
 import { MainLayout } from "../layout/MainLayout";
 import { Profile } from "../pages/user/Profile";
 import { ProtectRoutes } from "./ProtectRoutes";
@@ -63,6 +63,15 @@ export const router = createBrowserRouter([
                         path: "payment",
                         element: <h1>payment</h1>,
                     },
+                    {
+                        path: "payment/success",
+                        element: <h1>Payment success </h1>,
+                    },
+                    {
+                        path: "payment/cancel",
+                        element: <h1>Payment Cancelled </h1>,
+                    },
+                
                 ],
             },
         ],

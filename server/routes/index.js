@@ -6,6 +6,7 @@ import { userRouter } from "./userRoutes.js";
 import { adminRouter } from "./adminRoutes.js";
 import { pDetailRouter } from "./pDetailRoutes.js";
 import { wishlistRouter } from "./wishlistRoutes.js";
+import { paymentRouter } from "./paymentRoutes.js";
 
 
 
@@ -26,5 +27,7 @@ router.use("/wishlist",wishlistRouter)
 router.use("/cart",cartRouter)
 
 router.use("/review",reviewRouter)
+
+router.use("/payment",paymentRouter)
 
 export {router as apiRouter}

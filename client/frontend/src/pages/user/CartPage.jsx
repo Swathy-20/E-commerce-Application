@@ -1,13 +1,35 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch";
+import {loadStripe }  from "@stripe/stripe-js"
+import { axiosInstance } from "../../config/axiosInstance";
+
 
 export const CartPage = () => {
     const [cartData, isLoading, error] = useFetch("/cart/get-cart-details");
     const errorMessage = error?.response?.data?.message || "unable to fetch cart";
 
-    console.log("cartData====", cartData);
+    //console.log("cartData====", cartData);
 
-    console.log(error?.response?.data?.message);
+    //console.log(error?.response?.data?.message);
+   
+    const makePayment = async () => {
+        try {
+            const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
+
+            const session = await axiosInstance({
+                url: "/payment/create-checkout-session",
+                method: "POST",
+                data: { products: cartData?.products },
+            });
+
+            console.log(session, "=======session");
+            const result = stripe.redirectToCheckout({
+                sessionId: session.data.sessionId,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     if (error) return <p>{errorMessage} </p>;
 
@@ -28,7 +50,7 @@ export const CartPage = () => {
                 </div>
             </div>
 
-            <button className="btn btn-success">Check out </button>
+            <button className="btn btn-success"onClick={makePayment}>Check out </button>
         </div>
     );
 };
