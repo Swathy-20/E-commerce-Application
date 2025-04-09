@@ -13,7 +13,7 @@ router.get('/allproductDetails',getAllProductDetails)
 router.get("/detailbyId/:id",getProductDetailById)
 
 
-router.post("/create_details",authAdmin,upload.single("images"),createProductDetail)
+router.post("/create_details",authAdmin,upload.array("images", 3),createProductDetail)
 
 router.put("/update/:id",authAdmin,upload.single("images"),updateProductDetail)
 

@@ -60,9 +60,9 @@ export const userLogin = async(req,res,next)=>{
         
         //collect data, user exist, password match, token 
 
-        const {email,password,confirmPassword} = req.body
+        const {email,password} = req.body
 
-        if(!email || !password || !confirmPassword ){
+        if(!email || !password  ){
             return res.status(400).json({message:"All fields required"})
         }
         //console.log(name,email,password,mobile)
@@ -72,9 +72,7 @@ export const userLogin = async(req,res,next)=>{
         if(!userExist){
             return res.status(404).json({message:"User not found"})
         }
-        if(password !== confirmPassword){
-            return res.status(400).json({message:"password not same"})
-        }
+        
 
         const passwordMatch = bcrypt.compareSync(password, userExist.password)
         if(!passwordMatch){

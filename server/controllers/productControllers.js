@@ -16,7 +16,7 @@ export const getAllProducts = async (req, res, next) => {
 
 export const createProduct = async (req, res, next) => {
     try {
-        const { name, description, price,category, brand,stock,images, seller,rating } = req.body;
+        const { name, description, price,images, seller,rating } = req.body;
 
         const adminId = req.admin.id;
 
@@ -29,9 +29,7 @@ export const createProduct = async (req, res, next) => {
             name,
             description,
             price,
-            category,
-            brand,
-            stock,
+            
             images:cloudinaryRes.url,
             rating,
             seller: adminId,

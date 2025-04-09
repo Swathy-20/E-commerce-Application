@@ -15,17 +15,7 @@ const productSchema = new mongoose.Schema(
         type: Number, 
         required: true 
     },
-    category: { 
-        type: String, 
-        required: true 
-    },
-    brand: { 
-        type: String 
-    },
-    stock: { 
-        type: Number, 
-        required: true, 
-        default: 0 }, // Inventory count
+    
     images: { 
         type: String ,
         default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s"

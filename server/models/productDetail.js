@@ -27,7 +27,7 @@ const productDetailSchema = new mongoose.Schema(
         required: true, 
         default: 0 },
     images: { 
-        type: String,
+        type: [String],
         default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaLGtEd0MJro4X9wDmT2vrvLT-HjKkyyWVmg&s"
 
     },
@@ -41,12 +41,12 @@ const productDetailSchema = new mongoose.Schema(
         type: Number, 
         default: 0 },
    
-    specifications: {
-      color: { type: String },
-      size: { type: String },
-      weight: { type: String },
-      material: { type: String },
-    },
+    colors: [{ type: String }],
+sizes: [{ type: String }],
+specifications: {
+  weight: { type: String },
+  material: { type: String },
+},
     
     returnPolicy: { type: String },
   },

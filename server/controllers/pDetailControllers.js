@@ -34,7 +34,7 @@ export const getProductDetailById = async (req, res) => {
 export const createProductDetail = async (req, res) => {
   try {
     const { productId,
-      name, description, price, category, brand, stock,images,  seller, ratings, specifications, returnPolicy
+      name, description, price, category, brand, stock,images,  seller, ratings,sizes,colors, specifications, returnPolicy
     } = req.body;
     const adminId = req.admin.id;
 
@@ -44,7 +44,13 @@ export const createProductDetail = async (req, res) => {
     }
 
 
-    const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.file.path);
+    //const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.files.path);
+    const uploadedImages = [];
+
+    for (let file of req.files) {
+      const result = await cloudinaryInstance.uploader.upload(file.path);
+      uploadedImages.push(result.secure_url); // or result.url
+    }
             
     
             const newProduct = new ProductDetail({
@@ -55,9 +61,10 @@ export const createProductDetail = async (req, res) => {
                 category,
                 brand,
                 stock,
-                images:cloudinaryRes.url,
+                images:uploadedImages,
                 ratings,
                 seller: adminId,
+                sizes,colors,
                 specifications,
                 returnPolicy
 
