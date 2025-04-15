@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import home from "../../assets/categories/home.png"; 
+import home from "../../assets/categories/Home.png"; 
 import { Outlet } from "react-router-dom";
 import {axiosInstance} from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
