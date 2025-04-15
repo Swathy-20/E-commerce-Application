@@ -1,10 +1,23 @@
 import { cloudinaryInstance } from "../config/cloudinary.js";
 import {Product} from "../models/productModel.js"
-
+import {ProductDetail} from "../models/productDetail.js"
 
 
 export const getAllProducts = async (req, res, next) => {
     try {
+      const { search } = req.query;
+
+    let query = {};
+
+    if (search) {
+      const regex = new RegExp(search, 'i');
+      query = {
+        $or: [
+          { name: regex },
+          { category: regex }
+        ]
+      };
+    }
 
         const productList = await Product.find().select("-stock -category");
         res.json({ data:productList, message: "user autherized" });
@@ -103,3 +116,25 @@ export const updateProduct = async(req,res,next)=>{
         res.status(500).json({ message: "Error deleting product", error });
       }
     };
+     
+    export const categoryProduct = async(req,res)=>{
+      try {
+        const category = req.params.category;
+    
+        // Step 1: Find product details by category
+        const details = await ProductDetail.find({ category });
+    
+        // Step 2: Extract productIds
+        const productIds = details.map((detail) => detail.productId);
+    
+        // Step 3: Fetch products with those IDs
+        const products = await Product.find({ _id: { $in: productIds } });
+    
+        res.json(products);
+      } catch (error) {
+        console.error("Error fetching by category:", error);
+        res.status(500).json({ message: "Server error" });
+      }
+    }
+    
+    

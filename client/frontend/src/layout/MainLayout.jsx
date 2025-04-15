@@ -7,6 +7,7 @@ import { axiosInstance } from "../config/axiosInstance";
 
 import { clearUser, saveUser } from "../redux/features/userSlice";
 import { UserHeader } from "../components/user/UserHeader";
+import { AdminHeader } from "../components/admin/AdminHeader";
 
 
 
@@ -32,6 +33,8 @@ export const MainLayout = () => {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
+                withCredentials: true,
+                
             });
             console.log(response, "========response");
             dispatch(saveUser(response.data)); // Ensure you store user data correctly
@@ -42,16 +45,44 @@ export const MainLayout = () => {
             setIsLoading(false);
         }
     };
+    const checkAdmin = async () => {
+        
+        const token = localStorage.getItem("token"); // Adjust based on where you store the token
+        if (!token) {
+            setIsLoading(false);
+            return; // Stop execution if there's no token
+        }
+        try {
+        const response = await axiosInstance.get("/admin/check-admin", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+            
+        });
+        console.log(response, "========response");
+        dispatch(saveUser(response.data)); // Ensure you store user data correctly
+    } catch (error) {
+        console.error("Authentication check failed:", error);
+        dispatch(clearUser());
+    } finally {
+        setIsLoading(false);
+    }
+};
     
     useEffect(()=>{
             checkUser()
         },[location.pathname])
         //console.log("User is authenticated:", user?.isUserAuth)
+    useEffect(()=>{
+            checkAdmin()
+        },[location.pathname])    
     
     return isLoading ? null :(
             <div>
             
                  {user?.isUserAuth ? <UserHeader /> : <Header />}
+                 
 
                 <div className="min-h-96">
                     <Outlet />

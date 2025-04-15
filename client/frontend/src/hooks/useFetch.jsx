@@ -12,7 +12,7 @@ export const useFetch = (url) => {
         try {
             //console.log("Fetching data from:", url);
             const response = await axiosInstance({ method: "GET", url: url });
-            console.log("API Response:", response.data);
+            //console.log("API Response:", response.data);
             let extracteddata = response?.data?.data || response?.data || null;
             setData(extracteddata);
             setIsLoading(false);

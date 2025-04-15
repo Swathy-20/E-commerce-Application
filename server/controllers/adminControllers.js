@@ -31,16 +31,16 @@ export const adminSignup = async(req,res,next)=>{
         const hashedPassword = bcrypt.hashSync(password, 10)
         
         //save  to database
-        const newAdmin = new Admin({name, email,password:hashedPassword,mobile,role})
+        const newAdmin = new Admin({name, email,password:hashedPassword,mobile})
         await newAdmin.save()
 
 
-        const token = generateToken(newAdmin._id,"admin")
-        res.cookie("token", token, {
-            sameSite: NODE_ENV === "production" ? "None" : "Lax",
-            secure: NODE_ENV === "production",
-            httpOnly: NODE_ENV === "production",
-        });
+        // const token = generateToken(newAdmin._id,"admin")
+        // res.cookie("token", token, {
+        //     sameSite: NODE_ENV === "production" ? "None" : "Lax",
+        //     secure: NODE_ENV === "production",
+        //     httpOnly: NODE_ENV === "production",
+        // });
         const adminResponse = newAdmin.toObject();
         delete adminResponse.password;
 
@@ -62,9 +62,9 @@ export const adminLogin = async(req,res,next)=>{
         
         //collect data, user exist, password match, token 
 
-        const {email,password,confirmPassword,role} = req.body
+        const {email,password,role} = req.body
 
-        if(!email || !password || !confirmPassword || !role ){
+        if(!email || !password  || !role ){
             return res.status(400).json({message:"All fields required"})
         }
         //console.log(name,email,password,mobile)
@@ -74,9 +74,7 @@ export const adminLogin = async(req,res,next)=>{
         if(!adminExist){
             return res.status(404).json({message:"User not found"})
         }
-        if(password !== confirmPassword){
-            return res.status(400).json({message:"password not same"})
-        }
+       
 
         const passwordMatch = bcrypt.compareSync(password, adminExist.password)
         if(!passwordMatch){

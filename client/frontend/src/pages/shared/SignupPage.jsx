@@ -26,11 +26,18 @@ export const SignupPage = ({ role }) => {
   }
 
   const onSubmit = async (data) => {
+    const formData = {
+      ...data,
+      role: user.role,
+      
+    };
+    console.log("Form Data:", formData);
     try {
       const response = await axiosInstance({
-        method: "PUT",
+        method: "POST",
         url: user.signupAPI,
-        data: data,
+        data: formData,
+        
       });
       dispatch(saveUser(response?.data?.data));
       toast.success("Signup success");
@@ -41,6 +48,8 @@ export const SignupPage = ({ role }) => {
       console.log(error);
     }
   };
+  
+
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
@@ -59,8 +68,8 @@ export const SignupPage = ({ role }) => {
           </div>
 
           {/* Right side form */}
-          <div className="w-full lg:w-1/2 p-10">
-            <h2 className="text-2xl font-semibold mb-2 text-gray-800">Sign Up</h2>
+          <div className="w-full lg:w-1/2 p-10 text-gray-900">
+          <h2 className="text-2xl font-bold mb-6">Sign Up ({user.role})</h2>
             <p className="text-sm text-gray-500 mb-6">Enter your details below</p>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <input

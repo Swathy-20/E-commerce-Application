@@ -26,11 +26,21 @@ export const LoginPage = ({ role }) => {
   }
 
   const onSubmit = async (data) => {
+    const loginData = {
+      ...data,
+      role: user.role, // 👈 include role
+    };
+    // console.log("Sending login data:", loginData);
+    // console.log("Redirecting to:", user.profileRoute);
+
+    
+
+
     try {
       const response = await axiosInstance({
         method: "PUT",
         url: user.loginAPI,
-        data: data,
+        data: loginData,
       });
       dispatch(saveUser(response?.data?.data));
       toast.success("Login success");

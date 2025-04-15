@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     userData: {},
     isUserAuth: false,
+    isAdminAuth: false,
 };
 
 export const userSlice = createSlice({
@@ -10,11 +11,15 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         saveUser: (state, action) => {
+            
             state.isUserAuth = true;
+            state.isAdminAuth = true;
             state.userData = action.payload;
+
         },
         clearUser: (state) => {
             state.isUserAuth = false;
+            state.isAdminAuth = false;
             state.userData = {};
         },
     },
