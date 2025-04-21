@@ -9,7 +9,7 @@ const router = e.Router();
 router.post("/signup",adminSignup)
 
 
-router.put("/login",adminLogin)
+router.post("/login",adminLogin)
 
 
 router.get("/profile",authAdmin, adminProfile)

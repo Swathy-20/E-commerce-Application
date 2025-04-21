@@ -31,7 +31,7 @@ export const adminSignup = async(req,res,next)=>{
         const hashedPassword = bcrypt.hashSync(password, 10)
         
         //save  to database
-        const newAdmin = new Admin({name, email,password:hashedPassword,mobile})
+        const newAdmin = new Admin({name, email,password:hashedPassword,mobile,role: "admin"})
         await newAdmin.save()
 
 
@@ -62,9 +62,9 @@ export const adminLogin = async(req,res,next)=>{
         
         //collect data, user exist, password match, token 
 
-        const {email,password,role} = req.body
+        const {email,password} = req.body
 
-        if(!email || !password  || !role ){
+        if(!email || !password  ){
             return res.status(400).json({message:"All fields required"})
         }
         //console.log(name,email,password,mobile)
@@ -83,9 +83,20 @@ export const adminLogin = async(req,res,next)=>{
         if(!adminExist.isActive){
             return res.status(401).json({message:"user account is not active"})
         }
+//         console.log("Role during login:", adminExist.role);
+
+//         // console.log("Generating token with:", adminExist._id, adminExist.role);
+//         console.log("Admin Login -> ID:", adminExist._id);
+// console.log("Admin Login -> Role:", adminExist.role);
+
 
         const token = generateToken(adminExist._id, adminExist.role);
-        res.cookie("token", token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // true for HTTPS
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            
+          });
 
         delete adminExist._doc.password;
         res.json({ data: adminExist, message: "Login success" });

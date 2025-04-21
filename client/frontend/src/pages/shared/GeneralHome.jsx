@@ -3,18 +3,20 @@ import home from "../../assets/categories/Home.png";
 import { Outlet } from "react-router-dom";
 import {axiosInstance} from "../../config/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 const categories = [
   "Sarees",
-  "Women",
-  "Men",
+  "Ethnic Wear",
+  "Kurtas & Kurtis",
   "Tops & Tunics",
   "Western Wear",
-  "Footwear",
+  "Jackets & Shrugs",
   "Handbags & Clutches",
   "Jewellery",
-  "Beauty & Personal Care",
-  "Lingerie & Nightwear"
+  "Jeans",
+  "Footwear"
 ];
 
 export const GeneralHome = () => {
@@ -27,6 +29,7 @@ export const GeneralHome = () => {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
+  
   const handleCategoryClick = (category) => {
     // Encode category to handle special characters like &
     const encodedCategory = encodeURIComponent(category);
@@ -78,8 +81,8 @@ export const GeneralHome = () => {
       <div className="p-6">
         <div className="grid grid-cols-5 gap-6">
           {/* Sidebar */}
-          <div className="sidebar" style={{ width: "20%", padding: "1rem" }}>
-        <h3>Categories</h3>
+          <div className="sidebar" style={{ width: "50%", padding: "1rem" }}>
+        <h2 className="font-bold">Categories</h2>
         <ul style={{ listStyle: "none", padding: 0 }}>
           {categories.map((category) => (
             <li
@@ -139,7 +142,7 @@ export const GeneralHome = () => {
                   )}
                   <div className="absolute top-2 right-2 flex justify-end gap-2">
                     <button>🤍</button>
-                    <button>👁️</button>
+                    <Link to={`/product-detail/detailbyId/${item._id}`}>👁️</Link>
                   </div>
                   <img
                     src={item.images?.url || item.images || "/assets/placeholder.jpg"}

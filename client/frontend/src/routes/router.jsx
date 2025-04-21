@@ -3,7 +3,7 @@ import { About } from "../pages/user/About";
 import { Contact } from "../pages/user/Contact";
 import { GeneralHome } from "../pages/shared/GeneralHome";
 import { MainLayout } from "../layout/MainLayout";
-import { Profile } from "../pages/user/Profile";
+//import { Profile } from "../pages/user/Profile";
 import { AdminProfile } from "../pages/admin/Profile";
 import { ProtectRoutes } from "./ProtectRoutes";
 import { ProtectedRoutesAdmin } from "./ProtectedRoutesAdmin";
@@ -19,6 +19,8 @@ import { SearchResults } from "../pages/shared/SearchResults";
 import { CategoryProducts } from "../pages/shared/Categories";
 import { Home } from "../pages/user/Home";
 import { CreateProductForm } from "../pages/admin/AddProduct";
+import { DetailProductForm } from "../pages/admin/AddProductDetails";
+import { ProfileSidebar } from "../pages/user/ProfileSidebar";
 
 export const router = createBrowserRouter([
    
@@ -79,8 +81,8 @@ export const router = createBrowserRouter([
               path: "user",
               element: <ProtectRoutes />,
               children: [
-                { path: "/user/home", element: <Home /> },
-                { path: "profile", element: <Profile /> },
+                { path: "home", element: <Home /> },
+                { path: "profile", element: <ProfileSidebar /> },
                 { path: "wishlist", element: <Wishlist /> },
                 { path: "cart", element: <CartPage /> },
                 { path: "payment", element: <h1>Payment</h1> },
@@ -106,15 +108,20 @@ export const router = createBrowserRouter([
           path: "/admin",
           element: <AdminLayout />,
           children: [
+            { path: "add-product", element: <CreateProductForm/>},
+            { path: "add-product-details", element: <DetailProductForm/>},
+            
+            
            
             {
+              
                 element: <ProtectedRoutesAdmin />,
                 children:[
                     //profile
                     { path: "profile", element: <AdminProfile /> },
                     // userlistingpage
                     // product create page
-                    { path: "add-product", element: <CreateProductForm/>},
+                    
                     // productListing page
                     
                 ],

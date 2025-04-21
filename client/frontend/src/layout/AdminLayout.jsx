@@ -1,30 +1,28 @@
-import {
-  FaTachometerAlt, FaBoxOpen, FaShoppingCart, FaUsers, FaChartBar,
-  FaStar, FaMoneyCheckAlt, FaUserTie, FaTags, FaPaintBrush, FaCog
-} from "react-icons/fa";
 import { Link,NavLink, Outlet, useLocation } from "react-router-dom";
-import { Footer } from "../components/user/Footer";
-import { AdminHeader } from "../components/admin/AdminHeader";
-import { CreateProductForm } from "../pages/admin/AddProduct";
+// import { Footer } from "../components/user/Footer";
+// import { AdminHeader } from "../components/admin/AdminHeader";
 
 const navItems = [
-  { name: "Dashboard", icon: <FaTachometerAlt />, path: "/admin/dashboard" },
-  { name: "Profile", icon: <FaTachometerAlt />, path: "/admin/profile" },
+  { name: "Dashboard",  path: "/admin/dashboard" },
+  { name: "Profile",  path: "/admin/profile" },
   {
-    name: "Products", icon: <FaBoxOpen />, subItems: [
+    name: "Products", subItems: [
       { name: "Add product", path: "/admin/add-product" },
+      { name: "Add product details", path: "/admin/add-product-details" },
       { name: "Product list", path: "/products" },
       { name: "Categories", path: "/admin/categories" },
       { name: "Brands", path: "/admin/brands" }
+     
+
     ]
   },
-  { name: "Orders", icon: <FaShoppingCart />, path: "/admin/orders" },
-  { name: "Customers", icon: <FaUsers />, path: "/admin/customers" },
-  { name: "Statistics", icon: <FaChartBar />, path: "/admin/statistics" },
-  { name: "Reviews", icon: <FaStar />, path: "/admin/reviews" },
-  { name: "Transactions", icon: <FaMoneyCheckAlt />, badge: 1, path: "/admin/transactions" },
-  { name: "Sellers", icon: <FaUserTie />, path: "/admin/sellers" },
-  { name: "Settings", icon: <FaCog />, path: "/admin/settings" },
+  { name: "Orders", path: "/admin/orders" },
+  { name: "Customers",  path: "/admin/customers" },
+  { name: "Statistics",  path: "/admin/statistics" },
+  { name: "Reviews",  path: "/admin/reviews" },
+  { name: "Transactions",   path: "/admin/transactions" },
+  { name: "Sellers",  path: "/admin/sellers" },
+  { name: "Settings",  path: "/admin/settings" },
 ];
 
 export const AdminLayout = () => {
@@ -36,6 +34,7 @@ export const AdminLayout = () => {
     
 
       <div className="flex min-h-screen bg-gray-100 text-gray-900">
+      
         {/* Sidebar */}
         <aside className="w-64 bg-white shadow-md p-4 space-y-4">
           <div className="text-2xl font-bold text-blue-600 mb-4">🔒 Admin</div>
@@ -45,6 +44,8 @@ export const AdminLayout = () => {
   
             <div className="font-semibold mt-4">Products</div>
             <NavLink to="/admin/add-product" className="block ml-4 hover:text-blue-600">Add product</NavLink>
+            <NavLink to="/admin/add-product-details" className="block ml-4 hover:text-blue-600">Add product details</NavLink>
+
             <NavLink to="/products" className="block ml-4 hover:text-blue-600">Product list</NavLink>
             <NavLink to="/admin/categories" className="block ml-4 hover:text-blue-600">Categories</NavLink>
             <NavLink to="/admin/brands" className="block ml-4 hover:text-blue-600">Brands</NavLink>
@@ -74,7 +75,7 @@ export const AdminLayout = () => {
   
         {/* Main content */}
         <main className="flex-grow p-6">
-          <Outlet /> {/* Render child routes here */}
+          <Outlet /> 
         </main>
       </div>
     );

@@ -9,6 +9,7 @@ const storage = diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    //console.log("📸 Multer filename hit");
     cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });

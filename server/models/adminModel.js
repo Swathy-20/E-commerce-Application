@@ -23,12 +23,12 @@ const adminSchema = new Schema(
             type: String,
             required: true,
         },
-        // role:{
-        //     type: String,
-        //     enum:["admin","seller"],
-        //     required :true
+        role:{
+            type: String,
+            enum:["admin","seller"],
+            required :true
 
-        // },
+        },
         isActive: {
             type: Boolean,
             default: true,

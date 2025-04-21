@@ -32,13 +32,10 @@ export const createProduct = async (req, res, next) => {
         const { name, description, price,images, seller,rating } = req.body;
 
         const adminId = req.admin.id;
-
-        //console.log(req.file,'======req.file');
+        console.log("REQ.FILE >>>", req.file);
 
         const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.file.path);
-        // console.log("cloudinaryResponse=====", cloudinaryRes);
-
-        const newProduct = new Product({
+       const newProduct = new Product({
             name,
             description,
             price,
@@ -47,6 +44,8 @@ export const createProduct = async (req, res, next) => {
             rating,
             seller: adminId,
         });
+        
+
         await newProduct.save();
 
         res.json({ data: newProduct, message: "product created successfully" });
