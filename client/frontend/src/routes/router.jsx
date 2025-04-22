@@ -20,7 +20,7 @@ import { CategoryProducts } from "../pages/shared/Categories";
 import { Home } from "../pages/user/Home";
 import { CreateProductForm } from "../pages/admin/AddProduct";
 import { DetailProductForm } from "../pages/admin/AddProductDetails";
-import { ProfileSidebar } from "../pages/user/ProfileSidebar";
+import  {Profile}  from "../components/user/Profile";
 
 export const router = createBrowserRouter([
    
@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
               element: <ProtectRoutes />,
               children: [
                 { path: "home", element: <Home /> },
-                { path: "profile", element: <ProfileSidebar /> },
+                { path: "profile", element: <Profile /> },
                 { path: "wishlist", element: <Wishlist /> },
                 { path: "cart", element: <CartPage /> },
                 { path: "payment", element: <h1>Payment</h1> },

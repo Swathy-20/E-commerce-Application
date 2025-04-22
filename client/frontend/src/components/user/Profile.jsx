@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ProfileSidebar } from '../../pages/user/ProfileSidebar';
+import React, {useEffect, useState } from 'react';
+import { ProfileSidebar } from '../../pages/user/ProfileSidebar'
 import { ProfileDetails } from '../../pages/user/ProfileDetails';
 import { axiosInstance } from '../../config/axiosInstance';
 
@@ -14,9 +14,17 @@ import { axiosInstance } from '../../config/axiosInstance';
     useEffect(() => {
       // Fetch user profile
       axiosInstance.get('/user/profile')
-        .then(res => setUserData(res.data))
+        .then(res => {
+            //console.log("API response:", res.data);
+             
+             //console.log("userData state:", userData);
+
+            setUserData(res.data);
+          })
+      
         .catch(err => console.error("Error fetching profile:", err));
     }, []);
+    
     
     const handleMenuClick = (menuItem) => {
         console.log("Menu clicked:", menuItem);
@@ -26,7 +34,7 @@ import { axiosInstance } from '../../config/axiosInstance';
       };
   
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row">
+      <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row text-gray-900">
         <button
           className="md:hidden p-4 text-blue-600"
           onClick={() => setSidebarOpen(!sidebarOpen)}

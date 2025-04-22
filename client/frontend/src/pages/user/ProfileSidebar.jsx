@@ -31,45 +31,53 @@
 // };
 
 import React from 'react';
+import { useFetch } from "../../hooks/useFetch";
 
-export const ProfileSidebar = ({ user,handleMenuClick }) => {
-  console.log("handleMenuClick:", handleMenuClick); 
-  return (
-    <div className="w-72 bg-white p-4 rounded-xl shadow-md text-gray-900">
-      <div className="flex flex-col items-center text-center border-b pb-4">
-        <img
-          src="https://via.placeholder.com/80"
-          alt="profile"
-          className="w-20 h-20 rounded-full"
-        />
-        <p className="mt-2 font-semibold">{user?.name || 'Loading...'}</p>
-        <p className="text-sm text-gray-500">{user?.email || ''}</p>
-      </div>
 
-      <ul className="mt-4 space-y-2">
-        <li
-          onClick={() => handleMenuClick("profile")}
-          className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded"
-        >
-          <span className="material-icons mr-2"></span> My Profile
-        </li>
-        <li className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
-          <span className="material-icons mr-2"></span> Settings
-        </li>
-        <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 p-2 rounded">
-          <span className="flex items-center">
-            <span className="material-icons mr-2"></span> Notification
-          </span>
-          <select className="text-sm">
-            <option>Allow</option>
-            <option>Mute</option>
-          </select>
-        </li>
-        <li className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
-          <span className="material-icons mr-2"></span> Log Out
-        </li>
-      </ul>
-    </div>
-  );
-};
+ export const ProfileSidebar = ({ handleMenuClick }) =>  {
+  const [userDetails,isLoading]=useFetch("/user/profile")
+  //const [showOrders, setShowOrders] = useState(false);
+   return (
+     <div className="w-68 h-full bg-white p-4 rounded-xl shadow-md text-gray-900">
+       <div className="flex flex-col items-center text-center border-b pb-4">
+         <img
+           src={userDetails?.profilePic || "https://via.placeholder.com/300"}
+           alt="profile"
+           className="w-20 h-20 rounded-full" />
+         <div>
+           <h1>{userDetails?.name} </h1>
+           <p>{userDetails?.email} </p>
+           
 
+         </div>
+       </div>
+
+       <ul className="mt-4 space-y-2">
+         <li
+           onClick={() => handleMenuClick("profile")}
+           className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded"
+         >
+           <span className="material-icons mr-2"></span> My Profile
+         </li>
+         <li className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
+           <span className="material-icons mr-2"></span> Checkout
+         </li>
+         <li className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
+           <span className="material-icons mr-2"></span> Settings
+         </li>
+         <li className="flex items-center justify-between cursor-pointer hover:bg-gray-100 p-2 rounded">
+           <span className="flex items-center">
+             <span className="material-icons mr-2"></span> Notification
+           </span>
+           <select className="text-sm">
+             <option>Allow</option>
+             <option>Mute</option>
+           </select>
+         </li>
+         <li className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
+           <span className="material-icons mr-2"></span> Log Out
+         </li>
+       </ul>
+     </div>
+   );
+ };

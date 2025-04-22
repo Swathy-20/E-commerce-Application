@@ -24,21 +24,44 @@ export const SignupPage = ({ role }) => {
     user.profileRoute = "/admin/profile";
     user.loginRoute = "/admin/login";
   }
+ 
 
-  const onSubmit = async (data) => {
-    const formData = {
-      ...data,
-      role: user.role,
+  // const onSubmit = async (data) => {
+  //   const formData = {
+  //     ...data,
+  //     role: user.role,
       
-    };
-    console.log("Form Data:", formData);
-    try {
-      const response = await axiosInstance({
-        method: "POST",
-        url: user.signupAPI,
-        data: formData,
+  //   };
+  //   if (data.profilePic[0]) {
+  //     formData.append("profilePic", data.profilePic[0]);
+  //   }
+  //   console.log("Form Data:", formData);
+  //   try {
+  //     const response = await axiosInstance({
+  //       method: "POST",
+  //       url: user.signupAPI,
+  //       data: formData,
         
+  //     });
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("confirmPassword", data.confirmPassword);
+      formData.append("mobile", data.mobile);
+      formData.append("role", user.role);
+      if (data.profilePic[0]) {
+        formData.append("profilePic", data.profilePic[0]);
+      }
+  
+      const response = await axiosInstance.post(user.signupAPI, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+  
       dispatch(saveUser(response?.data?.data));
       toast.success("Signup success");
       navigate(user.profileRoute);
@@ -107,6 +130,13 @@ export const SignupPage = ({ role }) => {
                 className="w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700"
                 required
               />
+              <input
+  type="file"
+  accept="image/*"
+  {...register("profilePic")}
+  className="w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700"
+/>
+              
              
               <div className="flex justify-between text-sm mt-1">
                 <Link to="#" className="text-red-500 hover:underline">

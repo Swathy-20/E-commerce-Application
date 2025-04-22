@@ -1,5 +1,7 @@
 import { User } from "../models/userModel.js"
 import bcrypt from "bcrypt";
+import { cloudinaryInstance } from "../config/cloudinary.js";
+
 //import nodemailer from "nodemailer";
 //import jwt from 'jsonwebtoken'
 
@@ -18,6 +20,7 @@ export const userSignup = async(req,res,next)=>{
         //console.log(name,email,password,mobile)
 
         const userExist = await User.findOne({email})
+        
 
         if(userExist){
             return res.status(400).json({message:"User already exists"})
@@ -25,6 +28,15 @@ export const userSignup = async(req,res,next)=>{
         if(password !== confirmPassword){
             return res.status(400).json({message:"password not same"})
         }
+        let profilePicUrl = "";
+    if (req.file) {
+      const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.file.path, {
+        folder: "user-profiles",
+      });
+      profilePicUrl = cloudinaryRes.secure_url;
+    //   fs.unlinkSync(req.file.path); // delete local file after upload
+    }
+
 
 
 
@@ -100,7 +112,7 @@ export const userLogin = async(req,res,next)=>{
 export const userProfile = async(req,res,next)=>{
 
     try {
-        console.log('hitted')
+        //console.log('hitted')
         //id, 
         const userId = req.user.id
         const userData = await User.findById(userId).select("-password ")

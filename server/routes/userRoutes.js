@@ -1,12 +1,12 @@
 import e from "express";
 import { userLogin, userLogout,userProfile, userSignup,userProfileUpdate ,updatePassword, changeAddress, checkUser} from "../controllers/userControllers.js";
 import { authUser } from "../middlewares/authUser.js";
-
+import { upload } from "../middlewares/multer.js";
 
 const router = e.Router();
 
 
-router.post("/signup",userSignup )
+router.post("/signup",upload.single("profilePic"),userSignup )
 
 
 router.post("/login",userLogin)
