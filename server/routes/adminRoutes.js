@@ -1,5 +1,5 @@
 import e from "express";
-import { adminSignup, adminLogin, adminProfile ,adminProfileUpdate, adminLogout,checkAdmin, updatePassword,  deactivateAdmin} from "../controllers/adminControllers.js";
+import { adminSignup, adminLogin, adminProfile ,adminProfileUpdate, adminLogout,checkAdmin, updatePassword,  deactivateAdmin, getDashboardData} from "../controllers/adminControllers.js";
 import { authAdmin } from "../middlewares/authAdmin.js";
 
 
@@ -30,7 +30,7 @@ router.put("/update-password",authAdmin,updatePassword)
 router.get("/logout",adminLogout)
 
 router.get("/check-admin", authAdmin, checkAdmin);
-
+router.get("/dashboard",getDashboardData);
 
 
 export {router as adminRouter};

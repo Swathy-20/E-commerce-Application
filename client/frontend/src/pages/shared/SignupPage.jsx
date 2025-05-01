@@ -139,14 +139,14 @@ export const SignupPage = ({ role }) => {
               
              
               <div className="flex justify-between text-sm mt-1">
-                <Link to="#" className="text-red-500 hover:underline">
+                <Link to="#" className="text-slate-500 hover:underline">
                   Forgot Password?
                 </Link>
-                <Link to={user.loginRoute} className="text-red-500 hover:underline">
+                <Link to={user.loginRoute} className="text-slate-500 hover:underline">
                   Already have account?
                 </Link>
               </div>
-              <button type="submit" className="w-full bg-red-500 text-white py-2 rounded-md">
+              <button type="submit" className="w-full bg-slate-800 text-white py-2 rounded-md">
                 Sign Up
               </button>
             </form>

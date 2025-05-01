@@ -3,6 +3,8 @@ import bcrypt from "bcrypt"
 //import nodemailer from "nodemailer";
 //import jwt from 'jsonwebtoken'
 import { generateToken } from "../utils/token.js"
+import {Product} from "../models/productModel.js"
+
 
 export const adminSignup = async(req,res,next)=>{
     try {
@@ -114,7 +116,7 @@ export const adminProfile = async(req,res,next)=>{
 
     try {
         
-        console.log("hitted")
+        //console.log("hitted")
         const adminId = req.admin.id
         const adminData = await Admin.findById(adminId)
         const adminResponse = adminData.toObject();
@@ -156,6 +158,7 @@ export const adminLogout = async(req,res,next)=>{
         
         res.clearCookie("token")
         res.json({message:"User logout successfully"})
+        
         
     } catch (error) {
         res.status(error.statusCode || 500).json({message:error.message || "Internal server"})
@@ -284,3 +287,102 @@ export const deactivateAdmin = async (req, res) => {
         res.status(500).json({ message: "Server Error", error });
     }
 };
+
+
+// Dashboard Controller
+export const getDashboardData = async (req, res) => {
+  try {
+    // Fetch all products
+    const products = await Product.find();
+    //const orders = await Order.find();
+
+    // Total products
+    const totalProducts = products.length;
+
+    // Total stock (sum of stock of all products)
+    // const totalStock = products.reduce((sum, product) => sum + product.stock, 0);
+
+    // // Total orders
+    // const totalOrders = orders.length;
+
+    // // Total revenue (sum of all order totals)
+    // const totalRevenue = orders.reduce((sum, order) => sum + order.totalPrice, 0);
+
+    // // Out of stock products
+    // const outOfStockProducts = products.filter(product => product.stock === 0)
+    //   .map(product => ({
+    //     name: product.name,
+    //     category: product.category
+    //   }));
+
+    // // Low stock products (stock less than 3)
+    // const lowStockProducts = products.filter(product => product.stock > 0 && product.stock <= 3)
+    //   .map(product => ({
+    //     name: product.name,
+    //     stock: product.stock
+    //   }));
+
+    // // Highest sale product
+    // const productSales = {}; // { productId: unitsSold }
+    // orders.forEach(order => {
+    //   order.orderItems.forEach(item => {
+    //     productSales[item.productId] = (productSales[item.productId] || 0) + item.quantity;
+    //   });
+    // });
+
+    // let highestSaleProductId = null;
+    // let maxSoldUnits = 0;
+    // for (const [productId, unitsSold] of Object.entries(productSales)) {
+    //   if (unitsSold > maxSoldUnits) {
+    //     highestSaleProductId = productId;
+    //     maxSoldUnits = unitsSold;
+    //   }
+    // }
+
+    // let highestSaleProduct = null;
+    // if (highestSaleProductId) {
+    //   const product = await Product.findById(highestSaleProductId);
+    //   highestSaleProduct = {
+    //     name: product.name,
+    //     category: product.category,
+    //     unitsSold: maxSoldUnits,
+    //   };
+    // }
+
+    // // Best seller category
+    // const categorySales = {}; // { category: totalUnitsSold }
+    // products.forEach(product => {
+    //   if (product.category) {
+    //     categorySales[product.category] = (categorySales[product.category] || 0) + (productSales[product._id] || 0);
+    //   }
+    // });
+
+    // let bestSellerCategory = '';
+    // let maxCategorySales = 0;
+    // for (const [category, unitsSold] of Object.entries(categorySales)) {
+    //   if (unitsSold > maxCategorySales) {
+    //     bestSellerCategory = category;
+    //     maxCategorySales = unitsSold;
+    //   }
+    // }
+
+    // Send the response
+    res.status(200).json({
+      totalProducts,
+    //   totalStock,
+    //   totalOrders,
+    //   totalRevenue,
+    //   highestSaleProduct,
+    //   outOfStockProducts,
+    //   lowStockProducts,
+    //   bestSellerCategory,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
+

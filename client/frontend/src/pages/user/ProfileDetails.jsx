@@ -13,7 +13,7 @@ export const ProfileDetails = () => {
   }
 
   return (
-    <div className="bg-cyan-500
+    <div className="bg-gray-300
  p-6 rounded-xl shadow-md w-full max-w-3xl mx-auto h-full text-white">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Profile Details</h2>
 

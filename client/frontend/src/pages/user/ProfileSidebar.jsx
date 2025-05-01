@@ -32,11 +32,22 @@
 
 import React from 'react';
 import { useFetch } from "../../hooks/useFetch";
+import { NavLink, useNavigate } from "react-router-dom";
+//import { Logout } from '../shared/Logout';
 
 
  export const ProfileSidebar = ({ handleMenuClick }) =>  {
+  const navigate = useNavigate();
   const [userDetails,isLoading]=useFetch("/user/profile")
   //const [showOrders, setShowOrders] = useState(false);
+  const handleLogoutClick = () => {
+    navigate('/logout', {
+      state: {
+        email: userDetails?.email,
+        role: "user"
+      }
+    });
+  };
    return (
      <div className="w-68 h-full bg-white p-4 rounded-xl shadow-md text-gray-900">
        <div className="flex flex-col items-center text-center border-b pb-4">
@@ -74,9 +85,10 @@ import { useFetch } from "../../hooks/useFetch";
              <option>Mute</option>
            </select>
          </li>
-         <li className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
-           <span className="material-icons mr-2"></span> Log Out
-         </li>
+         <li onClick={handleLogoutClick}  className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded">
+          <span className="material-icons mr-2"></span> Log Out
+          
+        </li>
        </ul>
      </div>
    );

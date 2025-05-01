@@ -166,7 +166,7 @@ export const LoginPage=()=> {
       if (formData.role === 'user') {
         navigate('/user/profile');
       } else if (formData.role === 'admin') {
-        navigate('/admin/profile');
+        navigate('/admin/dashboard');
       } else if (formData.role === 'seller') {
         navigate('/seller/profile');
       }
@@ -174,8 +174,8 @@ export const LoginPage=()=> {
 
       setMessage(res.data.message);
       // console.log('Login successful:', res.data.data);
-      console.log('Login role:', formData.role);
-console.log('Login response:', res.data);
+      //console.log('Login role:', formData.role);
+     //console.log('Login response:', res.data);
 
     } catch (err) {
       console.log("Login error:", err);
@@ -233,10 +233,10 @@ console.log('Login response:', res.data);
                   </select>
 
                   <div className="flex justify-between text-sm mt-1">
-                  <Link to="/forgot-password" className="text-red-500 hover:underline">Forgot Password?</Link>
-                  <Link to="/signup" className="text-red-500 hover:underline">New User?</Link>
+                  <Link to="/forgot-password" className="text-slate-500 hover:underline">Forgot Password?</Link>
+                  <Link to="/signup" className="text-slate-500 hover:underline">New User?</Link>
               </div>
-              <button type="submit" className="w-full bg-red-500 text-white py-2 rounded-md">
+              <button type="submit" className="w-full bg-slate-800 text-white py-2 rounded-md">
                 Login
               </button>
               

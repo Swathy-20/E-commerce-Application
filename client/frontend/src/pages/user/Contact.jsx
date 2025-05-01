@@ -20,7 +20,8 @@ export const Contact = () => {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto text-white">
+    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="p-6 max-w-2xl mx-auto text-gray-900">
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -57,7 +58,7 @@ export const Contact = () => {
           Send Message
         </button>
       </form>
-    </div>
+    </div></div>
   );
 };
 

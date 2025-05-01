@@ -32,7 +32,7 @@ export const createProduct = async (req, res, next) => {
         const { name, description, price,images, seller,rating } = req.body;
 
         const adminId = req.admin.id;
-        console.log("REQ.FILE >>>", req.file);
+        //console.log("REQ.FILE >>>", req.file);
 
         const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.file.path);
        const newProduct = new Product({

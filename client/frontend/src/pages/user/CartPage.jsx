@@ -26,9 +26,10 @@ export const CartPage = () => {
             console.log(error);
         }
     };
-    const handleRemove = async (itemId) => {
+    const handleRemove = async (productId) => {
         try {
-            const response = await axiosInstance({ method: "DELETE", data: { itemId } ,url: "/cart/remove-from-cart" });
+            const response = await axiosInstance({ method: "DELETE", data: {productId } ,url: "/cart/remove-from-cart" });
+            
              
         } catch (err) {
             console.error("Error removing item:", err);
@@ -44,7 +45,7 @@ export const CartPage = () => {
     if (error) return <p>{errorMessage} </p>;
 
     return (
-        <div className="p-6 text-gray-800">
+        <div className="p-6 bg-white text-gray-800">
             <div className="flex flex-col lg:flex-row gap-10">
                 {/* Cart Items */}
                 <div className="lg:w-8/12 w-full">
@@ -61,7 +62,7 @@ export const CartPage = () => {
                                 </div>
                                 <button
                                     className="text-red-600 hover:text-red-800 font-semibold"
-                                    onClick={() => handleRemove(item._id)}
+                                    onClick={() => handleRemove(item.productId._id)}
                                 >
                                     Remove
                                 </button>

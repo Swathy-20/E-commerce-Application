@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 //import { DarkMode } from "../shared/DarkMode";
 import { Search, UserCircle } from "lucide-react";
+import Shop from "../../assets/categories/Shop.png";
 
 
 export const Header = () => {
@@ -23,8 +24,9 @@ export const Header = () => {
               </div>
         
               
-            <header className="flex justify-between items-center p-5 border-b text-gray-900">
-            <div className="text-2xl font-bold text-blue-600">ShopNest</div>
+            <header className="flex justify-between items-center p-4 border-b text-gray-900">
+            {/* <div className="text-2xl font-bold text-blue-600">ShopNest</div> */}
+            <img src={Shop} className="w-100 h-30 rounded-lg"></img>
                 <nav className="space-x-6  md:block">
                   <Link to="/" className="hover:text-pink-500">Home</Link>
                   <Link to="/contact" className="hover:text-pink-500">Contact</Link>

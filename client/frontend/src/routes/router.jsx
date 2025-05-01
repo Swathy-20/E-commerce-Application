@@ -21,6 +21,10 @@ import { Home } from "../pages/user/Home";
 import { CreateProductForm } from "../pages/admin/AddProduct";
 import { DetailProductForm } from "../pages/admin/AddProductDetails";
 import  {Profile}  from "../components/user/Profile";
+import { AdminDashboard } from "../pages/admin/Dashboard";
+
+import { ProductCategories } from "../pages/shared/ProductCategories";
+import { Logout } from "../pages/shared/Logout";
 
 export const router = createBrowserRouter([
    
@@ -48,6 +52,10 @@ export const router = createBrowserRouter([
                 path: "/login",
                 element: <LoginPage />,
               },
+              {
+                path: "logout",
+                element: <Logout />
+              },
                
         {
             path: "/signup",
@@ -64,7 +72,7 @@ export const router = createBrowserRouter([
             },
             {
               path: "products",
-              element: <Products />,
+              element: <ProductCategories />,
             },
             {
               path: "product-detail/detailbyId/:id",
@@ -88,6 +96,7 @@ export const router = createBrowserRouter([
                 { path: "payment", element: <h1>Payment</h1> },
                 { path: "payment/success", element: <h1>Payment Success</h1> },
                 { path: "payment/cancel", element: <h1>Payment Cancelled</h1> },
+               
               ],
             },
           ],
@@ -104,6 +113,8 @@ export const router = createBrowserRouter([
             path: "/admin/signup",
             element: <SignupPage role="admin" />,
           },
+          
+
         {
           path: "/admin",
           element: <AdminLayout />,
@@ -119,10 +130,13 @@ export const router = createBrowserRouter([
                 children:[
                     //profile
                     { path: "profile", element: <AdminProfile /> },
+                    { path: "dashboard", element: <AdminDashboard /> },
                     // userlistingpage
                     // product create page
                     
                     // productListing page
+                    { path: "product", element: <Products /> },
+
                     
                 ],
             },

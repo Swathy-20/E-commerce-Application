@@ -1,6 +1,7 @@
 import { Link,NavLink, Outlet, useLocation } from "react-router-dom";
+import { AdminHeader } from "../components/admin/AdminHeader";
 // import { Footer } from "../components/user/Footer";
-// import { AdminHeader } from "../components/admin/AdminHeader";
+
 
 const navItems = [
   { name: "Dashboard",  path: "/admin/dashboard" },
@@ -29,47 +30,91 @@ export const AdminLayout = () => {
   const location = useLocation();
 
   return (
-    
+    <div>
+    <AdminHeader/>
     
     
 
       <div className="flex min-h-screen bg-gray-100 text-gray-900">
       
+      
         {/* Sidebar */}
         <aside className="w-64 bg-white shadow-md p-4 space-y-4">
           <div className="text-2xl font-bold text-blue-600 mb-4">🔒 Admin</div>
           <nav className="space-y-2">
-            <NavLink to="/admin/dashboard" className="block hover:text-blue-600">📊 Dashboard</NavLink>
-            <NavLink to="/admin/profile" className="block hover:text-blue-600">👤 Profile</NavLink>
+            <NavLink to="/admin/dashboard"  className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>📊 Dashboard</NavLink>
+            <NavLink to="/admin/profile" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>👤 Profile</NavLink>
   
             <div className="font-semibold mt-4">Products</div>
-            <NavLink to="/admin/add-product" className="block ml-4 hover:text-blue-600">Add product</NavLink>
-            <NavLink to="/admin/add-product-details" className="block ml-4 hover:text-blue-600">Add product details</NavLink>
+            <NavLink to="/admin/add-product" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Add product</NavLink>
+            <NavLink to="/admin/add-product-details" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Add product details</NavLink>
 
-            <NavLink to="/products" className="block ml-4 hover:text-blue-600">Product list</NavLink>
-            <NavLink to="/admin/categories" className="block ml-4 hover:text-blue-600">Categories</NavLink>
-            <NavLink to="/admin/brands" className="block ml-4 hover:text-blue-600">Brands</NavLink>
+            <NavLink to="/products" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Product list</NavLink>
+            <NavLink to="/admin/categories" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Categories</NavLink>
+            <NavLink to="/admin/brands" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Brands</NavLink>
   
             <div className="font-semibold mt-4">🛒 Orders</div>
-            <NavLink to="/admin/orders" className="block ml-4 hover:text-blue-600">Orders</NavLink>
+            <NavLink to="/admin/orders" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Orders</NavLink>
   
             <div className="font-semibold mt-4">👥 Customers</div>
-            <NavLink to="/admin/customers" className="block ml-4 hover:text-blue-600">Customers</NavLink>
+            <NavLink to="/admin/customers" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Customers</NavLink>
   
             <div className="font-semibold mt-4">📈 Statistics</div>
-            <NavLink to="/admin/statistics" className="block ml-4 hover:text-blue-600">Statistics</NavLink>
+            <NavLink to="/admin/statistics" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Statistics</NavLink>
   
             <div className="font-semibold mt-4">⭐ Reviews</div>
-            <NavLink to="/admin/reviews" className="block ml-4 hover:text-blue-600">Reviews</NavLink>
+            <NavLink to="/admin/reviews" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Reviews</NavLink>
   
             <div className="font-semibold mt-4">💳 Transactions</div>
-            <NavLink to="/admin/transactions" className="block ml-4 hover:text-blue-600">Transactions</NavLink>
+            <NavLink to="/admin/transactions" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Transactions</NavLink>
   
             <div className="font-semibold mt-4">🏬 Sellers</div>
-            <NavLink to="/admin/sellers" className="block ml-4 hover:text-blue-600">Sellers</NavLink>
+            <NavLink to="/admin/sellers" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Sellers</NavLink>
   
             <div className="font-semibold mt-4">⚙️ Settings</div>
-            <NavLink to="/admin/settings" className="block ml-4 hover:text-blue-600">Settings</NavLink>
+            <NavLink to="/admin/settings" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Settings</NavLink>
           </nav>
         </aside>
   
@@ -77,6 +122,6 @@ export const AdminLayout = () => {
         <main className="flex-grow p-6">
           <Outlet /> 
         </main>
-      </div>
+      </div></div>
     );
 };

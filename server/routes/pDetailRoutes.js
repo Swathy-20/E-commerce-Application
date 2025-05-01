@@ -1,7 +1,7 @@
 import e from "express";
 import { authAdmin } from "../middlewares/authAdmin.js";
 import { authUser } from "../middlewares/authUser.js";
-import { createProductDetail, deleteProductDetail, getAllProductDetails, getProductDetailById, updateProductDetail,  } from "../controllers/pDetailControllers.js";
+import { createProductDetail, deleteProductDetail, getAllCategories, getAllProductDetails, getProductDetailById, updateProductDetail,  } from "../controllers/pDetailControllers.js";
 import { upload } from "../middlewares/multer.js";
 
 
@@ -18,6 +18,8 @@ router.post("/create_details",authAdmin,upload.array("images", 3),createProductD
 router.put("/update/:id",authAdmin,upload.array("images",3),updateProductDetail)
 
 router.delete("/delete/:id",deleteProductDetail)
+
+router.get("/categories",getAllCategories)
 
 
 

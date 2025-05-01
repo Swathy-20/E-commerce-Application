@@ -2,15 +2,15 @@ import React from "react";
 import { CircleUser, Heart } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
-import { DarkMode } from "../shared/DarkMode";
-
+//import { DarkMode } from "../shared/DarkMode";
+import Shop from "../../assets/categories/Shop.png";
 export const UserHeader = () => {
     //console.log("UserHeader is rendering");
 
     return (
-        <div className="flex justify-between items-center w-full px-20  h-24 shadow-2xl bg-white text-gray-900 ">
+        <div className="flex justify-between items-center w-full px-20  h-30 shadow-2xl bg-white text-gray-900 ">
             <Link to={"/"}>
-                <div className="text-3xl font-bold">ShopNest</div>
+                <img src={Shop} className="w-100 h-30 rounded-lg"></img>
             </Link>
             <nav className="flex gap-8 items-center font-semibold">
                 <Link to={"/"}>Home</Link>
@@ -20,7 +20,7 @@ export const UserHeader = () => {
             </nav>
 
             <div className="flex gap-14 items-center ">
-                <DarkMode />
+                
                 <Link to={"/user/cart"}>
                     <ShoppingBag />
                 </Link>

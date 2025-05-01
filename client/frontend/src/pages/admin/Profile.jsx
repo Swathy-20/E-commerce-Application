@@ -11,9 +11,7 @@ export const AdminProfile = () => {
 
   <div>
            <AdminLayout/>
-           {!isLoading && (
-            <pre>{JSON.stringify(adminDetails,null,2)}</pre>
-           )}
+           
            
 
            
