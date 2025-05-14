@@ -3,7 +3,7 @@ export const authAdmin =(req,res,next)=>{
     try {
 
         const {token} = req.cookies
-        console.log("Token from cookies:", token);
+        //console.log("Token from cookies:", token);
         // console.log("COOKIES RECEIVED:", req.cookies);
         // console.log("TOKEN RECEIVED:", req.cookies.token);
 
@@ -12,7 +12,7 @@ export const authAdmin =(req,res,next)=>{
          }
 
         const decodedToken = jwt.verify(token,process.env.JWT_SECRETKEY)
-        console.log("role:",decodedToken.role);
+        //console.log("role:",decodedToken.role);
         
         
         if(!decodedToken){

@@ -11,6 +11,8 @@ const navItems = [
       { name: "Add product", path: "/admin/add-product" },
       { name: "Add product details", path: "/admin/add-product-details" },
       { name: "Product list", path: "/products" },
+      // { name: "Delete Product", path: "/admin/delete" },
+
       { name: "Categories", path: "/admin/categories" },
       { name: "Brands", path: "/admin/brands" }
      
@@ -65,6 +67,10 @@ export const AdminLayout = () => {
     `flex items-center p-2 rounded-lg transition-colors ${
       isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
     }`}>Product list</NavLink>
+    {/* <NavLink to="/admin/delete" className={({ isActive }) =>
+    `flex items-center p-2 rounded-lg transition-colors ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
+    }`}>Delete Product</NavLink> */}
             <NavLink to="/admin/categories" className={({ isActive }) =>
     `flex items-center p-2 rounded-lg transition-colors ${
       isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'

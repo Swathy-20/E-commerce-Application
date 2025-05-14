@@ -29,7 +29,7 @@ export const getAllProducts = async (req, res, next) => {
 
 export const createProduct = async (req, res, next) => {
     try {
-        const { name, description, price,images, seller,rating } = req.body;
+        const { name, price,images, seller,rating } = req.body;
 
         const adminId = req.admin.id;
         //console.log("REQ.FILE >>>", req.file);
@@ -37,18 +37,21 @@ export const createProduct = async (req, res, next) => {
         const cloudinaryRes = await cloudinaryInstance.uploader.upload(req.file.path);
        const newProduct = new Product({
             name,
-            description,
+           
             price,
             
             images:cloudinaryRes.url,
             rating,
             seller: adminId,
         });
+        res.status(201).json({ message: "Product added!", product: newProduct });
         
 
         await newProduct.save();
 
-        res.json({ data: newProduct, message: "product created successfully" });
+        
+        
+
     } catch (error) {
         res.status(error.statusCode || 500).json({ message: error.message || "Internal server" });
     }
@@ -59,7 +62,7 @@ export const getProductById = async (req,res,next)=> {
         const { id } = req.params;
         
             
-            let product = await Product.findById(id).populate("seller", "name price","description");;
+            let product = await Product.findById(id).populate("seller", "name price");;
             if (!product) {
               return res.status(404).json({ message: "Product not found" });
             }
@@ -119,16 +122,9 @@ export const updateProduct = async(req,res,next)=>{
     export const categoryProduct = async(req,res)=>{
       try {
         const category = req.params.category;
-    
-        // Step 1: Find product details by category
         const details = await ProductDetail.find({ category });
-    
-        // Step 2: Extract productIds
         const productIds = details.map((detail) => detail.productId);
-    
-        // Step 3: Fetch products with those IDs
         const products = await Product.find({ _id: { $in: productIds } });
-    
         res.json(products);
       } catch (error) {
         console.error("Error fetching by category:", error);

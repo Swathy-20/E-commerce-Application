@@ -22,9 +22,12 @@ import { CreateProductForm } from "../pages/admin/AddProduct";
 import { DetailProductForm } from "../pages/admin/AddProductDetails";
 import  {Profile}  from "../components/user/Profile";
 import { AdminDashboard } from "../pages/admin/Dashboard";
-
 import { ProductCategories } from "../pages/shared/ProductCategories";
 import { Logout } from "../pages/shared/Logout";
+import { ProductGrid } from "../components/admin/ProductGrid";
+import { ProductList } from "../pages/admin/ProductList";
+import { EditProductDetail} from "../pages/admin/EditProductDetail";
+import { CategoryList } from "../pages/admin/CategoryList";
 
 export const router = createBrowserRouter([
    
@@ -53,7 +56,7 @@ export const router = createBrowserRouter([
                 element: <LoginPage />,
               },
               {
-                path: "logout",
+                path: "/logout",
                 element: <Logout />
               },
                
@@ -120,8 +123,14 @@ export const router = createBrowserRouter([
           element: <AdminLayout />,
           children: [
             { path: "add-product", element: <CreateProductForm/>},
-            { path: "add-product-details", element: <DetailProductForm/>},
-            
+            { path: "add-product-details/:productId", element: <DetailProductForm/>},
+            { path: "delete", element: <ProductGrid/>},
+            { path: "edit-productdetail/:id", element: <EditProductDetail/>},
+            { path: "categories", element: <CategoryList/>},
+            {
+              path: "logout",
+              element: <Logout />
+            },
             
            
             {
@@ -135,7 +144,7 @@ export const router = createBrowserRouter([
                     // product create page
                     
                     // productListing page
-                    { path: "product", element: <Products /> },
+                    { path: "product", element: <ProductList /> },
 
                     
                 ],

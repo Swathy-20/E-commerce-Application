@@ -15,7 +15,16 @@ export const ProductDetails = ({productId}) => {
 
 
   
-
+  const handleAddToWishlist = async () => {
+    try {
+      const response = await axiosInstance.post("/wishlist/add", { productId: id });
+      toast.success("Product added to wishlist");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Unable to add to wishlist");
+    }
+  };
+  
 
   const handleAddToCart = async () => {
     if (!selectedSize) {
@@ -117,8 +126,9 @@ export const ProductDetails = ({productId}) => {
                   {productDetails.sizes.map((size, index) => (
                     <span
                       key={index}
-                      className={`border px-3 py-1 rounded cursor-pointer text-sm text-gray-700 hover:bg-gray-100"
-                      }`}
+                      className={`border px-3 py-1 rounded cursor-pointer text-sm text-gray-700 hover:bg-gray-100 ${
+    selectedSize === size ? "bg-gray-200 border-blue-500" : ""
+  }`}
                       onClick={() => setSelectedSize(size)}
        
                     >
@@ -180,6 +190,13 @@ export const ProductDetails = ({productId}) => {
             >
               Add to Cart
             </button>
+            <button
+  className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded"
+  onClick={handleAddToWishlist}
+>
+  Add to Wishlist
+</button>
+
           </div>
         </div>
       )}

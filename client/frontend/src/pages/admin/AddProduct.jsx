@@ -156,6 +156,7 @@
 
 import React,{ useState } from 'react';
 import {axiosInstance} from '../../config/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 
 import toast from "react-hot-toast";
@@ -163,11 +164,13 @@ import toast from "react-hot-toast";
 export const CreateProductForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    description: "",
+    
     price: "",
     rating: "",
     image: null,
   });
+  const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -188,7 +191,7 @@ export const CreateProductForm = () => {
 
     const form = new FormData();
     form.append("name", formData.name);
-    form.append("description", formData.description);
+    
     form.append("price", formData.price);
     form.append("rating", formData.rating);
     form.append("image", formData.image);
@@ -200,6 +203,7 @@ export const CreateProductForm = () => {
       });
 
       toast.success(res.data.message || "Product added!");
+      
       setFormData({
         name: "",
         description: "",
@@ -207,6 +211,10 @@ export const CreateProductForm = () => {
         rating: "",
         image: null,
       });
+      const productId = res.data?.product?._id; 
+if (productId) {
+  navigate(`/admin/add-product-details/${productId}`);
+}
     } catch (err) {
       console.error("Upload error:", err.response);
       toast.error(err.response?.data?.message || "Error while uploading");
@@ -228,15 +236,7 @@ export const CreateProductForm = () => {
           className="w-full p-3 border border-gray-300 rounded-md"
           required
         />
-        <textarea
-          name="description"
-          placeholder="Product Description"
-          value={formData.description}
-          onChange={handleChange}
-          className="w-full p-3 border border-gray-300 rounded-md"
-          rows={4}
-          required
-        />
+        
         <input
           type="number"
           name="price"

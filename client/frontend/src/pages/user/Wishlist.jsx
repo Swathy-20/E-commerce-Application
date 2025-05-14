@@ -1,72 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import toast from "react-hot-toast";
-import { X } from "lucide-react";
-import { Link } from "react-router-dom";
 
 export const Wishlist = () => {
-  const [wishlistItems, setWishlistItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [wishlist, setWishlist] = useState([]);
 
-  
-
-  const fetchWishlist = async () => {
-    try {
-      const res = await axiosInstance.get("/wishlist/get");
-      console.log("Fetched wishlist data:", res.data);
-
-      const wishlistProducts = res?.data?.products || [];
-      setWishlistItems(wishlistProducts);
-    } 
-    catch (error) {
-      console.error("Error fetching wishlist", error);
-      toast.error("Failed to fetch wishlist");
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const response = await axiosInstance.get("/wishlist/get");
+        setWishlist(response.data?.wishlist || []);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to load wishlist");
+      }
+    };
+
     fetchWishlist();
   }, []);
 
   const handleRemove = async (productId) => {
     try {
       await axiosInstance.delete(`/wishlist/remove/${productId}`);
+      setWishlist((prev) => prev.filter((item) => item.productId._id !== productId));
       toast.success("Removed from wishlist");
-      setWishlistItems((prev) => prev.filter((item) => item._id !== productId));
     } catch (error) {
-      console.error("Error removing item from wishlist", error);
-      toast.error("Unable to remove item");
+      console.error(error);
+      toast.error("Failed to remove from wishlist");
     }
   };
 
-  // const handleMoveAllToCart = () => {
-  //   // TODO: Implement move to cart logic
-  //   toast.success("Moved all items to bag!");
-  // };
-
-  
-
-  if (loading) return <p className="p-8">Loading wishlist...</p>;
- 
-
   return (
-    <div className="p-4 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">My Wishlist</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {wishlistItems.map(product => (
-          <div key={product._id} className="border p-4 rounded shadow-sm">
-            <img src={product.images} alt={product.name} className="w-full h-48 object-cover rounded" />
-            <h2 className="text-xl font-semibold mt-2">{product.name}</h2>
-            <p className="text-gray-700">${product.price}</p>
-            <button
-              onClick={() =>handleRemove(product._id)}
-              className="mt-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+    <div className="p-8 max-w-4xl mx-auto">
+      <h1 className="text-4xl font-serif font-semibold text-center mb-10">Wishlist</h1>
+
+      <div className="flex flex-col gap-6">
+        {wishlist.map((item) => {
+          const product = item.productId;
+          if (!product) return null;
+
+          return (
+            <div
+              key={item._id}
+              className="flex justify-between items-center p-4 border rounded-lg shadow-sm bg-white"
             >
-              Remove
-            </button>
-          </div>
-        ))}
+              <div className="flex items-center gap-6">
+                <img
+                  src={product.images?.[0]}
+                  alt={product.name}
+                  className="w-24 h-24 object-cover rounded"
+                />
+                <div>
+                  <h2 className="text-xl font-medium">{product.name}</h2>
+                  <p className="text-lg font-semibold mt-1">${product.price.toFixed(2)}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => handleRemove(product._id)}
+                className="px-5 py-2 border border-gray-400 rounded hover:bg-gray-100 transition"
+              >
+                Remove
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

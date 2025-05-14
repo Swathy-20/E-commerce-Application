@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export const ProductCards = ({ product }) => {
+export const ProductCards = ({ product}) => {
     const navigate = useNavigate();
+   
     
 
     return (
@@ -22,9 +23,7 @@ export const ProductCards = ({ product }) => {
                             <div className="p-4">
                                 <h3 className="text-lg font-medium mb-1">{product.name}</h3>
                                 <p className="text-pink-600 font-semibold mb-2">₹{product.price}</p>
-                                {/* <button className="btn btn-primary" onClick={() => navigate(`/product-detail/detailbyId/${product._id}`)}>
-                                   Read More
-                                </button> */}
+                                
                 
                             </div>
                     
