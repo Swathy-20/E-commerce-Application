@@ -58,10 +58,10 @@ export const AdminLayout = () => {
     `flex items-center p-2 rounded-lg transition-colors ${
       isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
     }`}>Add product</NavLink>
-            <NavLink to="/admin/add-product-details" className={({ isActive }) =>
+            {/* <NavLink to="/admin/add-product-details" className={({ isActive }) =>
     `flex items-center p-2 rounded-lg transition-colors ${
       isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-200'
-    }`}>Add product details</NavLink>
+    }`}>Add product details</NavLink> */}
 
             <NavLink to="/products" className={({ isActive }) =>
     `flex items-center p-2 rounded-lg transition-colors ${

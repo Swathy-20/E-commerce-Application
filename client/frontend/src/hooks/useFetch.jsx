@@ -11,7 +11,10 @@ export const useFetch = (url) => {
     const fetchData = async () => {
         try {
             //console.log("Fetching data from:", url);
-            const response = await axiosInstance({ method: "GET", url: url,withCredentials:true
+            const response = await axiosInstance({ method: "GET", url: url,withCredentials:true,
+                headers: {
+    Authorization: `Bearer ${token}`,
+  },
             });
             //console.log("API Response:", response.data);
             let extracteddata = response?.data?.data || response?.data || null;
