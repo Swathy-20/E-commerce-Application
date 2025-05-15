@@ -85,13 +85,6 @@ export const adminLogin = async(req,res,next)=>{
         if(!adminExist.isActive){
             return res.status(401).json({message:"user account is not active"})
         }
-//         console.log("Role during login:", adminExist.role);
-
-//         // console.log("Generating token with:", adminExist._id, adminExist.role);
-//         console.log("Admin Login -> ID:", adminExist._id);
-// console.log("Admin Login -> Role:", adminExist.role);
-
-
         const token = generateToken(adminExist._id, adminExist.role);
         res.cookie("token", token, {
             httpOnly: true,

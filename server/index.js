@@ -18,7 +18,7 @@ app.use(cookieParser())
 app.use(cors({
         origin: ["http://localhost:5173","https://e-commerce-application-shopnest.vercel.app"],
         credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTION"],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     })
 );
 
